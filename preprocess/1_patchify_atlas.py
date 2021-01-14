@@ -64,11 +64,15 @@ def extract_patch(isoRawImage_file, isoLabelImage_file):
     #Read the input isotropic label image
     isoLabelImage = sitk.ReadImage(isoLabelImage_file)
     #npIsoLabelImage = sitk.GetArrayFromImage(isoLabelImage)
-    assert thresholdIsoRawImage.GetSize() == isoLabelImage.GetSize()
     
     #Generate binary label map
-    thresholdFilter = sitk.BinaryThresholdImageFilter()
-    binaryLabelImage = thresholdFilter.Execute(isoLabelImage, 1, 1024, 1, 0)
+    binaryLabelImage = sitk.GetArrayFromImage(isoLabelImage)
+    binaryLabelImage[binaryLabelImage > 0] = 1
+    binaryLabelImage = sitk.GetImageFromArray(binaryLabelImage)
+    binaryLabelImage.SetOrigin(isoLabelImage.GetOrigin())
+    binaryLabelImage.SetSpacing(isoLabelImage.GetSpacing())
+    binaryLabelImage.SetDirection(isoLabelImage.GetDirection())
+    assert thresholdIsoRawImage.GetSize() == binaryLabelImage.GetSize()
 
     #Extract Patches
     # Generate Patches of the masked Image
@@ -131,7 +135,6 @@ def main(argv):
     parser.add_argument('-l', '--step_size', type=int, default=26, help='The overlap between consecutive patches.')
     
     args = parser.parse_args()
-    input_csv = args.input_csv
     output_dir = args.output_dir
     patch_size = args.patch_size
     step_size = args.step_size
