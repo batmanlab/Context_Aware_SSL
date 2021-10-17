@@ -1,4 +1,6 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
+# Graph MoCo model, code adapted from https://github.com/facebookresearch/moco/blob/main/moco/builder.py
+
 import torch
 import torch.nn as nn
 
@@ -69,7 +71,7 @@ class MoCo(nn.Module):
         self.queue_ptr[0] = ptr
 
     @torch.no_grad()
-    def _batch_shuffle_ddp(self, x):
+    def _batch_shuffle_ddp(self, x, adj):
         """
         Batch shuffle, for making use of BatchNorm.
         *** Only support DistributedDataParallel (DDP) model. ***
@@ -77,6 +79,8 @@ class MoCo(nn.Module):
         # gather from all gpus
         batch_size_this = x.shape[0]
         x_gather = concat_all_gather(x)
+        adj_gather = concat_all_gather(adj)
+        
         batch_size_all = x_gather.shape[0]
 
         num_gpus = batch_size_all // batch_size_this
@@ -94,7 +98,7 @@ class MoCo(nn.Module):
         gpu_idx = torch.distributed.get_rank()
         idx_this = idx_shuffle.view(num_gpus, -1)[gpu_idx]
 
-        return x_gather[idx_this], idx_unshuffle
+        return x_gather[idx_this], adj_gather[idx_this], idx_unshuffle
 
     @torch.no_grad()
     def _batch_unshuffle_ddp(self, x, idx_unshuffle):
@@ -134,6 +138,8 @@ class MoCo(nn.Module):
         """
 
         # compute query features
+        # im_q[0]: patch data, im_q[1]: adjacency matrix
+        
         batch_q = self._prep_batch(im_q[0], im_q[1])
         q = self.encoder_q(batch_q)  # queries: NxC
         q = nn.functional.normalize(q, dim=1)
@@ -143,7 +149,7 @@ class MoCo(nn.Module):
             self._momentum_update_key_encoder()  # update the key encoder
 
             # shuffle for making use of BN
-            im_k[0], idx_unshuffle = self._batch_shuffle_ddp(im_k[0])
+            im_k[0], im_k[1], idx_unshuffle = self._batch_shuffle_ddp(im_k[0], im_k[1])
             batch_k = self._prep_batch(im_k[0], im_k[1])
 
             k = self.encoder_k(batch_k)  # keys: NxC
