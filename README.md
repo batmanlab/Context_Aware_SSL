@@ -32,7 +32,7 @@ Supervised learning method requires a large volume of annotated datasets. Collec
 - [ANTs](http://stnava.github.io/ANTs/)
 
 ### Preprocess Data
-Please follow the instructions in [./preprocess/README.md](./preprocess/README.md)
+Please follow the instructions [here](./preprocess/)
 
 ### Training
 ```bash
