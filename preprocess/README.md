@@ -8,6 +8,7 @@ python 1_patchify_atlas.py --atlas_image path_to/atlas_image.nii.gz
                            --atlas_roi_mask path_to/atlas_roi_mask.nii.gz
                            --output_dir ./patch_data_32_6_reg --patch_size 32 --step_size 26 
 ```
+The `path_to/atlas_roi_mask.nii.gz` is the ROI mask for the atlas image, we use [lungmask](https://github.com/JoHof/lungmask) to segment lung region as ROI.
 The script will print the number of patch for each subject, which will be used in step 4.
 
 ### Step 2: Registration
