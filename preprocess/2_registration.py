@@ -35,6 +35,7 @@ if __name__ == '__main__':
     fixed_img = args.atlas_image
     LOG = open("./INSP2Atlas/log/ants_reg_idx"+str(args.batch_index)+".log", "w")
 
+    # clamp image intensity
     cif=sitk.ClampImageFilter()
     cif.SetUpperBound(1024)
     cif.SetLowerBound(-1024)
@@ -51,13 +52,15 @@ if __name__ == '__main__':
             continue
 
         moving_img = "./INSP2Atlas/clamped/" + line.split('/')[-1]
-        warped_img = os.path.basename(moving_img)[:-7] # Remove .nii.gz
-        # Main executive
-        run_result = os.system("antsRegistration -d 3 -o [./INSP2Atlas/transform/"+warped_img+"_Reg_Atlas_Rigid_,./INSP2Atlas/image/"+warped_img+"_Reg_Atlas_Rigid.nii.gz] -r ["+fixed_img+", "+moving_img+",1] -t Rigid[0.01] -m MI["+fixed_img+", "+moving_img+",1,32,Regular,0.5] -c [500x250x100] -s 2x1x0 -f 4x2x1")
+        warped_img = os.path.basename(moving_img)[:-7] # Remove .nii.gz from file name
+        
+        # Main registration executive, you may change hyperparameter to adapt to your data
+        run_result = os.system("antsRegistration -d 3 -o [./INSP2Atlas/transform/"+warped_img+"_Reg_Atlas_Affine_,./INSP2Atlas/image/"+warped_img+"_Reg_Atlas_Affine.nii.gz] -r ["+fixed_img+", "+moving_img+",1] -t Affine[0.01] -m MI["+fixed_img+", "+moving_img+",1,32,Regular,0.5] -c [500x250x100] -s 2x1x0 -f 4x2x1")
 
+        # Only transform mat file is needed, transformed image is removed to save space
         if run_result == 0:
             try:
-                os.unlink("./INSP2Atlas/image/"+warped_img+"_Reg_Atlas_Rigid.nii.gz")
+                os.unlink("./INSP2Atlas/image/"+warped_img+"_Reg_Atlas_Affine.nii.gz")
             except Exception as e:
                 continue
         LOG.write(warped_img+"\t"+str(run_result)+"\n")
