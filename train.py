@@ -435,7 +435,7 @@ def train_patch(train_loader, model, criterion, optimizer, epoch, args):
     num_iter_sub_epoch = num_iter_epoch // args.num_patch
     print("num_iter_sub_epoch:", num_iter_sub_epoch)
         
-    patch_idx = -1
+    patch_idx = -1 # init patch_idx
     for i, data in enumerate(train_loader, 0):
         # measure data loading time
         data_time.update(time.time() - end)
@@ -445,7 +445,7 @@ def train_patch(train_loader, model, criterion, optimizer, epoch, args):
                 break
             train_loader.dataset.set_patch_idx(patch_idx)
 
-        sids, images, patch_loc_idx, adj, labels = data
+        images, patch_loc_idx, adj = data
 
         if args.gpu is not None:
             images[0] = images[0].cuda(args.gpu, non_blocking=True)
