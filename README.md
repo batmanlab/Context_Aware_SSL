@@ -23,9 +23,9 @@ Supervised learning method requires a large volume of annotated datasets. Collec
     }
 
 ### Requirements
-- PyTorch 1.4
-- SimpleITK
-- easydict
+- [PyTorch](https://pytorch.org/get-started/locally/)
+- [SimpleITK](https://anaconda.org/SimpleITK/simpleitk)
+- [easydict](https://anaconda.org/conda-forge/easydict)
 - [torch_geometric](https://github.com/rusty1s/pytorch_geometric)
 - [monai](https://github.com/Project-MONAI/MONAI)
 - [tensorboard\_logger](https://github.com/TeamHG-Memex/tensorboard_logger)
