@@ -11,6 +11,8 @@ python 1_patchify_atlas.py --atlas_image path_to/atlas_image.nii.gz
 The `path_to/atlas_roi_mask.nii.gz` is the ROI mask for the atlas image, we use [lungmask](https://github.com/JoHof/lungmask) to segment lung region as ROI.
 The script will print the number of patch for each subject, which will be used in step 4.
 
+The atlas image we used for COPDGene (lung) dataset is available <a href="https://drive.google.com/file/d/1xNdrquyYRJthukQVZIWPKwMSbKPQccmp/view?usp=sharing">here</a>.
+
 ### Step 2: Registration
 ```bash
 python 2_registration.py --atlas_image path_to/atlas_image.nii.gz
