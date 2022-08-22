@@ -2,8 +2,6 @@
 
 Official PyTorch implementation for paper *Context Matters: Graph-based Self-supervised Representation Learning for Medical Images, accepted by AAAI 2021*.
 
-Li Sun\*, Ke Yu\* and Kayhan Batmanghelich
-
 <p align="center">
   <img width="75%" height="%75" src="./utils/model_arch.png">
 </p>
@@ -41,8 +39,26 @@ sh train.sh
 The hyperparameter setting can be found in train.sh
 ### Evaluation
 ```
-python test.py
+python extract_feature.py --exp-dir path_to_work_dir \
+                          --root_dir path_to_data_dir \
+                          --checkpoint_patch path_to_patch-level_encoder_checkpoint \
+                          --checkpoint_graph path_to_subject-level_GCN_checkpoint
 ```
+
+### Pretrained weights
+<table><tbody>
+<!-- START TABLE -->
+<!-- TABLE HEADER -->
+<th valign="bottom">Dataset</th>
+<th valign="bottom">Anatomy</th>
+<th valign="bottom">Checkpoint</th>
+<!-- TABLE BODY -->
+<tr><td align="left"><a href="https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=phs000179.v6.p2">COPDGene</a></td>
+<td align="center">Lung</td>
+<td align="center"><a href="https://drive.google.com/file/d/1SoW5zoTAagEwZk3AZ3wmTj05lq4bO-7v/view?usp=sharing">Download</a></td>
+</tr>
+  
+</tbody></table>
 
 ### Reference
 MoCo v2: https://github.com/facebookresearch/moco
