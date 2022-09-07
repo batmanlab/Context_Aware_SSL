@@ -33,7 +33,7 @@ python 3_patchify_images.py --atlas_image path_to/atlas_image.nii.gz
 ```
 The atlas\_patch\_loc is the output patch location file from step 1.
 
-### Step 4: Grouping patches
+### Step 4: Grouping patches (for training only)
 ```
 python 4_group_patch.py --num_patch num_patch
                         --batch_size 48
