@@ -1,3 +1,6 @@
+# Perform registration to the atlas image. This will take a long time. 
+# If you have many subjects, you can perform registration using the lung mask(https://github.com/JoHof/lungmask) rather than using the raw image.
+
 import os
 import SimpleITK as sitk
 import argparse
@@ -5,6 +8,7 @@ import pandas as pd
 import glob
 
 def clamp_img(img_path, cif):
+    # clip the intensity range for more robust registration
     img=sitk.ReadImage(img_path)
     img=cif.Execute(img)
     img=sitk.Cast(img, sitk.sitkInt16)
