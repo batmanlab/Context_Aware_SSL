@@ -113,10 +113,10 @@ def run():
     output_basename = isotropicFileName.split('/')[-1].split('.')[0]
 
     patchImgData, patch_loc = extract_patch(isotropicFileName, partialLungLabelMapFileName) 
-    adj = prep_adjacency_matrix(patch_loc)
-    np.save(os.path.join(output_dir, output_basename+'_patch.npy'), patchImgData)
-    np.save(os.path.join(output_dir, output_basename+'_patch_loc.npy'), patch_loc)
-    np.save(os.path.join(output_dir, output_basename+'_adj.npy'), adj)
+
+    # save the anatomical location for each landmark in atlas space
+    np.save(os.path.join(output_dir, 'atlas_patch_loc.npy'), patch_loc)
+
     print("Finished. Total number of patches:", patchImgData.shape[0])
                 
 def main(argv): 
