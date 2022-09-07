@@ -37,7 +37,7 @@ if __name__ == '__main__':
     finished_id = set(finished_id)
 
     fixed_img = args.atlas_image
-    LOG = open("./INSP2Atlas/log/ants_reg_idx"+str(args.batch_index)+".log", "w")
+    LOG = open("./INSP2Atlas/log/ants_reg.log", "w")
 
     # clamp image intensity
     cif=sitk.ClampImageFilter()
