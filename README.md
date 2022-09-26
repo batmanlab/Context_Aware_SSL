@@ -2,6 +2,8 @@
 
 Official PyTorch implementation for paper *Context Matters: Graph-based Self-supervised Representation Learning for Medical Images, accepted by AAAI 2021*.
 
+**\*\*\* NEW \*\*\*** We release an all-in-one pipeline for feature extraction using our model pretrained on lung CT, available [here](https://drive.google.com/drive/folders/1ZdIuCo3uEZsxGj7drJ9SI7l48q0Ri3az?usp=sharing), sample data is provided.
+
 <p align="center">
   <img width="75%" height="%75" src="./utils/model_arch.png">
 </p>
@@ -28,6 +30,7 @@ Supervised learning method requires a large volume of annotated datasets. Collec
 - [monai](https://github.com/Project-MONAI/MONAI)
 - [tensorboard\_logger](https://github.com/TeamHG-Memex/tensorboard_logger)
 - [ANTs](http://stnava.github.io/ANTs/)
+- [lungmask](https://github.com/JoHof/lungmask)
 
 ### Preprocess Data
 Please follow the instructions [here](./preprocess/)
