@@ -14,12 +14,13 @@ class COPD_dataset(Dataset):
         self.transforms = transforms
 
         self.sid_list = []
+        print(self.cfg.root_dir)
         for item in glob.glob(self.cfg.root_dir+"patch/"+"*_patch.npy"):
             self.sid_list.append(item.split('/')[-1][:-10])
         self.sid_list.sort()
 
         # location of landmarks, defined in atlas space
-        self.patch_loc = np.load(self.cfg.root_dir+"19676E_INSP_STD_JHU_COPD_BSpline_Iso1_patch_loc.npy")
+        self.patch_loc = np.load(self.cfg.atlas_patch_loc)
         self.patch_loc = self.patch_loc / self.patch_loc.max(0) # column-wise norm
 
         print("Fold: full")
