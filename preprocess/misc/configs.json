@@ -1,0 +1,55 @@
+{
+  "arch": "custom",
+  "workers_patch": 8,
+  "workers_graph": 4,
+  "epochs": 50,
+  "batch_size_patch": 128,
+  "batch_size_graph": 16,
+  "lr": 0.03,
+  "start_epoch": 0,
+  "schedule": [
+    120,
+    160
+  ],
+  "momentum": 0.9,
+  "weight_decay": 0.0001,
+  "print_freq": 20,
+  "resume": "/home/lisun/work/copd/gnn_shared/3D-SSL/exp/custom_encoder_fusion_full_v2_mask/checkpoint_patch_0002.pth.tar",
+  "resume_graph": "/home/lisun/work/copd/gnn_shared/3D-SSL/exp/custom_encoder_fusion_full_v2_mask/checkpoint_graph_0028.pth.tar",
+  "world_size": 1,
+  "rank": 0,
+  "dist_url": "tcp://localhost:10001",
+  "dist_backend": "nccl",
+  "seed": 0,
+  "num_sub_epoch": 10,
+  "gpu": null,
+  "multiprocessing_distributed": true,
+  "num_patch": 581,
+  "root_dir": "/pghbio/dbmi/batmanlab/lisun/copd/gnn_shared/data/patch_data_32_6_reg_mask/",
+  "label_name": [
+    "FEV1pp_utah",
+    "FEV1_FVC_utah",
+    "finalGold"
+  ],
+  "label_name_set2": [
+    "Exacerbation_Frequency",
+    "MMRCDyspneaScor"
+  ],
+  "visual_score": [
+    "Emph_Severity",
+    "Emph_Paraseptal"
+  ],
+  "P2_Pheno": [
+    "Exacerbation_Frequency_P2"
+  ],
+  "fold": 5,
+  "nhw_only": false,
+  "moco_dim": 128,
+  "moco_k_graph": 4096,
+  "moco_k_patch": 4096,
+  "moco_m": 0.999,
+  "moco_t": 0.2,
+  "mlp": true,
+  "cos": true,
+  "exp_name": "custom_encoder_fusion_full_v2_mask"
+}
