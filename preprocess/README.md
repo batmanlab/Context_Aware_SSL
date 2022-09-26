@@ -26,7 +26,7 @@ The dataset.csv should at least contains two columns: sid and image, the sid col
 python 3_registration.py --atlas_image ./misc/atlas_lung_mask.nii.gz \
                          --input_csv ./dataset.csv
 ```
-We use registration on the lung mask for faster convergence and more robust performance.
+We use registration on the lung mask for faster convergence and more robust performance. This is the most time-consuming step, it takes 7 min per sample.
 
 ### Step 4: Mapping landmarks and patchifying
 ```bash
