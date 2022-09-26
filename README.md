@@ -42,10 +42,12 @@ sh train.sh
 The hyperparameter setting can be found in train.sh
 ### Evaluation
 ```
-python extract_feature.py --exp-dir path_to_work_dir \
-                          --root_dir path_to_data_dir \
-                          --checkpoint_patch path_to_patch-level_encoder_checkpoint \
-                          --checkpoint_graph path_to_subject-level_GCN_checkpoint
+python extract_feature.py --exp-dir ./results/ \
+                          --root-dir ./results/processed_patch/ \
+                          --config-path ./misc/configs.json \
+                          --atlas_patch_loc ./misc/atlas_patch_loc.npy \
+                          --checkpoint_patch ./src/SSL_pretrained_weight/checkpoint_patch.pth.tar \
+                          --checkpoint_graph ./src/SSL_pretrained_weight/checkpoint_graph.pth.tar
 ```
 
 ### Pretrained weights
